@@ -4,13 +4,13 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import load_model # type: ignore
 from tensorflow.keras import layers, models # type: ignore
 
-def train_model(training_data_path, model_path, weights_path, test_size, epoch=10, batchsize=32):
+def train_model(training_data_path, model_path, weights_path, test_size, epoch=50, batchsize=64):
     # read clean csv data
     df = pd.read_csv(training_data_path)
 
     # split df into input layers and target
-    X = df.drop(columns=['Layak'])  # Replace 'target_column' with the actual target column name
-    y = df['Layak']  # Binary target for classification
+    X = df.drop(columns=['Layak Bansos (Label)'])  # Replace 'target_column' with the actual target column name
+    y = df['Layak Bansos (Label)']  # Binary target for classification
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
 
@@ -34,7 +34,7 @@ def train_model(training_data_path, model_path, weights_path, test_size, epoch=1
     print("Test accuracy:", test_acc)
 
 def main():
-    train_model('data/clean_data.csv', 'model/cnn_model_1.keras', 'model/cnn_model_1.weights.h5',0.1)
+    train_model('data\processed_data_orang_jatim.csv', 'model/cnn_model_1.keras', 'model/cnn_model_1.weights.h5',0.1)
 
 if __name__ == "__main__":
     main()
